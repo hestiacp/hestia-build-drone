@@ -1,0 +1,64 @@
+---
+kind: pipeline
+type: docker
+name: Build Hestia for AMD64
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: Ubuntu 20.04
+    image: ubuntu:focal
+    commands:
+    - git clone 
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./clone_hestiacp.sh
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/ubuntu/focal
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/focal
+  - name: Ubuntu 18.04
+    image: ubuntu:bionic
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./clone_hestiacp.sh
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/ubuntu/bionic
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/bionic
+  - name: Debian Bullseye
+    image: debian:bullseye
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./clone_hestiacp.sh
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/debian/bullseye
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/bullseye
+  - name: Debian Buster
+    image: debian:buster
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./clone_hestiacp.sh
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/debian/buster
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/buster
+  - name: Debian Stretch
+    image: debian:stretch
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./clone_hestiacp.sh
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/debian/stretch
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/stretch    
+  - name: scp files
+    image: appleboy/drone-scp
+    settings:
+      host:
+        from_secret: target_server
+      user: root
+      key:
+        from_secret: ssh_key
+      port: 22
+      command_timeout: 2m
+      target: /root/
+      source:
+        - ./packages/*
