@@ -4,4 +4,5 @@
 branch="staging/1.5.3"
 apt-get update && apt-get install git -y
 git clone https://github.com/hestiacp/hestiacp.git
+cd ./hestiacp/
 git checkout $branch
