@@ -62,3 +62,6 @@ steps:
       target: /root/
       source:
         - ./packages/*
+        
+trigger:
+  event: [ push ]
