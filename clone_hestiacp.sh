@@ -2,7 +2,7 @@
 
 # Branch to be build from
 fork="hestiacp"
-branch="staging/1.5.3"
+branch="staging/1.5.4"
 software="build-essential libxml2-dev libz-dev libzip-dev libgmp-dev libcurl4-gnutls-dev unzip openssl libssl-dev pkg-config libsqlite3-dev libonig-dev rpm git wget curl"
 # make sure to delete all old  traces
 rm -rf /hestiacp/
