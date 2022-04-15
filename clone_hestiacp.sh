@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Branch to be build from
+# Branch to build packages from
 fork="hestiacp"
 branch="main"
 software="build-essential libxml2-dev libz-dev libzip-dev libgmp-dev libcurl4-gnutls-dev unzip openssl libssl-dev pkg-config libsqlite3-dev libonig-dev rpm git wget curl"
