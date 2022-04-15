@@ -8,7 +8,16 @@ platform:
   arch: amd64
 
 steps:
-  - name: Ubuntu 20.04
+ - name: Ubuntu 22.04
+    image: ubuntu:jammy
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./clone_hestiacp.sh
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/ubuntu/jammy
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/jammy
+    - rm -rf /tmp/hestia-src/
+ - name: Ubuntu 20.04
     image: ubuntu:focal
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
@@ -80,6 +89,15 @@ platform:
   arch: arm64
 
 steps:
+ - name: Ubuntu 22.04
+    image: ubuntu:jammy
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./clone_hestiacp.sh
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/ubuntu/jammy
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/jammy
+    - rm -rf /tmp/hestia-src/
   - name: Ubuntu 20.04
     image: ubuntu:focal
     commands:
