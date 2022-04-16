@@ -13,7 +13,8 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
-    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/ubuntu/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/jammy
     - rm -rf /tmp/hestia-src/
@@ -22,7 +23,8 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
-    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/ubuntu/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/focal
     - rm -rf /tmp/hestia-src/
@@ -31,7 +33,8 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
-    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/ubuntu/bionic
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/bionic
     - rm -rf /tmp/hestia-src/
@@ -40,7 +43,8 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
-    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/debian/bullseye
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/bullseye
     - rm -rf /tmp/hestia-src/
@@ -49,7 +53,8 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
-    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/debian/buster
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/buster
     - rm -rf /tmp/hestia-src/
@@ -58,7 +63,8 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
-    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/debian/stretch
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/stretch    
     - rm -rf /tmp/hestia-src/
@@ -89,7 +95,7 @@ platform:
   arch: arm64
 
 steps:
-  - name: Ubuntu 22.04
+ - name: Ubuntu 22.04
     image: ubuntu:jammy
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
