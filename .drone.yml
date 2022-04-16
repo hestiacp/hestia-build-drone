@@ -15,8 +15,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/ubuntu/jammy
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/jammy
+    - mkdir -p ./packages/jammy
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
     - rm -rf /tmp/hestia-src/
   - name: Ubuntu 20.04
     image: ubuntu:focal
@@ -24,9 +24,8 @@ steps:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
-    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/ubuntu/focal
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/focal
+    - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'    - mkdir -p ./packages/ubuntu/focal
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
     - rm -rf /tmp/hestia-src/
   - name: Ubuntu 18.04
     image: ubuntu:bionic
@@ -35,8 +34,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/ubuntu/bionic
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/bionic
+    - mkdir -p ./packages/bionic
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
     - rm -rf /tmp/hestia-src/
   - name: Debian Bullseye
     image: debian:bullseye
@@ -45,8 +44,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/debian/bullseye
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/bullseye
+    - mkdir -p ./packages/bullseye
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
     - rm -rf /tmp/hestia-src/
   - name: Debian Buster
     image: debian:buster
@@ -55,8 +54,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/debian/buster
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/buster
+    - mkdir -p ./packages/buster
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
     - rm -rf /tmp/hestia-src/
   - name: Debian Stretch
     image: debian:stretch
@@ -65,8 +64,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/debian/stretch
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/stretch    
+    - mkdir -p ./packages/stretch
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
     - rm -rf /tmp/hestia-src/
   - name: scp files
     image: appleboy/drone-scp
@@ -102,8 +101,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/ubuntu/jammy
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/jammy
+    - mkdir -p ./packages/jammy
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
     - rm -rf /tmp/hestia-src/
   - name: Ubuntu 20.04
     image: ubuntu:focal
@@ -112,7 +111,7 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'    - mkdir -p ./packages/ubuntu/focal
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/focal
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
     - rm -rf /tmp/hestia-src/
   - name: Ubuntu 18.04
     image: ubuntu:bionic
@@ -121,8 +120,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/ubuntu/bionic
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/ubuntu/bionic
+    - mkdir -p ./packages/bionic
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
     - rm -rf /tmp/hestia-src/
   - name: Debian Bullseye
     image: debian:bullseye
@@ -131,8 +130,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/debian/bullseye
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/bullseye
+    - mkdir -p ./packages/bullseye
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
     - rm -rf /tmp/hestia-src/
   - name: Debian Buster
     image: debian:buster
@@ -141,8 +140,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/debian/buster
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/buster
+    - mkdir -p ./packages/buster
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
     - rm -rf /tmp/hestia-src/
   - name: Debian Stretch
     image: debian:stretch
@@ -151,8 +150,8 @@ steps:
     - ./clone_hestiacp.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --nginx --noinstall --keepbuild --debug '~localsrc'
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --php --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/debian/stretch
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/debian/stretch
+    - mkdir -p ./packages/stretch
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
     - rm -rf /tmp/hestia-src/
   - name: scp files
     image: appleboy/drone-scp
