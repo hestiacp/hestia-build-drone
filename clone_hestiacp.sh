@@ -13,3 +13,4 @@ cd ./hestiacp/
 git checkout $branch
 
 echo "Start building HestiaCP Packages"
+export TERM=xterm
