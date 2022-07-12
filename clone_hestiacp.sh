@@ -2,7 +2,7 @@
 
 # Branch to build packages from.
 fork="hestiacp"
-branch="staging/1.6.1"
+branch="main"
 
 # make sure to delete all old  traces
 rm -rf /hestiacp/
