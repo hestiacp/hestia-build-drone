@@ -13,6 +13,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
@@ -22,6 +23,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'    
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
@@ -31,6 +33,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/bionic
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
@@ -40,6 +43,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/bullseye
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
@@ -49,6 +53,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/buster
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
@@ -58,6 +63,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/stretch
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
@@ -94,6 +100,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
@@ -103,6 +110,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
@@ -112,6 +120,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/bionic
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
@@ -121,6 +130,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/bullseye
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
@@ -130,6 +140,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/buster
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
@@ -139,6 +150,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./clone_hestiacp.sh
+    - ./install_apt.sh
     - ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/stretch
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
