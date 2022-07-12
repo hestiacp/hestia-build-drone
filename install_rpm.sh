@@ -1,4 +1,5 @@
 #!/bin/bash
+source ./clone_hestiacp.sh
 
 SOFTWARE='gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd'
 
@@ -11,3 +12,13 @@ dnf upgrade -y -q
 echo "Installing dependencies for compilation..."
 
 dnf install -y -q $SOFTWARE
+
+# make sure to delete all old  traces
+rm -rf /hestiacp/
+
+git clone https://github.com/$fork/hestiacp.git
+cd ./hestiacp/
+git checkout $branch
+
+echo "Start building HestiaCP Packages"
+export TERM=xterm
