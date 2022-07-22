@@ -63,7 +63,7 @@ steps:
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
     - rm -rf /tmp/hestia-src/
   - name: Redhat 8
-    image: redhat/ubi8-minimal
+    image: redhat/ubi8
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
@@ -72,7 +72,7 @@ steps:
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
     - rm -rf /tmp/hestia-src/
   - name: Redhat 9
-    image: redhat/ubi9-minimal
+    image: redhat/ubi9
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
@@ -162,7 +162,7 @@ steps:
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
     - rm -rf /tmp/hestia-src/
   - name: Redhat 8
-    image: redhat/ubi8-minimal
+    image: redhat/ubi8
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
@@ -171,7 +171,7 @@ steps:
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
     - rm -rf /tmp/hestia-src/
   - name: Redhat 9
-    image: redhat/ubi9-minimal
+    image: redhat/ubi9
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
