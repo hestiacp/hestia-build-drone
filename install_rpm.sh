@@ -6,8 +6,10 @@ SOFTWARE='gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcu
 echo "Updating system DNF repositories..."
 dnf install -y -q 'dnf-command(config-manager)'
 dnf install -y -q dnf-plugins-core
-dnf config-manager --set-enabled powertools > /dev/null 2>&1
-dnf config-manager --set-enabled PowerTools > /dev/null 2>&1
+dnf config-manager --set-enabled crb
+dnf config-manager --set-enabled codeready-builder
+dnf config-manager --set-enabled powertools 
+dnf config-manager --set-enabled PowerTools
 dnf upgrade -y -q
 echo "Installing dependencies for compilation..."
 
