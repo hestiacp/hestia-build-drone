@@ -9,7 +9,7 @@ platform:
 
 steps:
   - name: Redhat 8
-    image: rockylinux:8-minimal 
+    image: rockylinux:8 
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
@@ -18,7 +18,7 @@ steps:
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
     - rm -rf /tmp/hestia-src/
   - name: Redhat 9
-    image: rockylinux:9-minimal 
+    image: rockylinux:9 
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
@@ -54,7 +54,7 @@ platform:
 
 steps:
   - name: Redhat 8
-    image: rockylinux:8-minimal 
+    image: rockylinux:8 
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
@@ -63,7 +63,7 @@ steps:
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
     - rm -rf /tmp/hestia-src/
   - name: Redhat 9
-    image: rockylinux:9-minimal 
+    image: rockylinux:9 
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
