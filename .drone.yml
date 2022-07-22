@@ -9,7 +9,7 @@ platform:
 
 steps:
   - name: Redhat 8
-    image: redhat:ubi8
+    image: redhat/ubi8
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
@@ -54,7 +54,7 @@ platform:
 
 steps:
   - name: Redhat 8
-    image: redhat:ubi8
+    image: redhat/ubi8
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./install_rpm.sh
