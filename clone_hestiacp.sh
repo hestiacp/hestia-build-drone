@@ -2,6 +2,6 @@
 
 # Branch to build packages from.
 fork="hestiacp"
-branch="main"
+branch="staging/1.6.8"
 
 # test
