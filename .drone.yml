@@ -17,6 +17,7 @@ steps:
     - mkdir -p ./packages/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Ubuntu 20.04
     image: ubuntu:focal
     commands:
@@ -26,6 +27,7 @@ steps:
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Ubuntu 18.04
     image: ubuntu:bionic
     commands:
@@ -35,6 +37,7 @@ steps:
     - mkdir -p ./packages/bionic
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Debian Bullseye
     image: debian:bullseye
     commands:
@@ -44,6 +47,7 @@ steps:
     - mkdir -p ./packages/bullseye
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Debian Buster
     image: debian:buster
     commands:
@@ -53,6 +57,7 @@ steps:
     - mkdir -p ./packages/buster
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Debian Stretch
     image: debian:stretch
     commands:
@@ -62,6 +67,7 @@ steps:
     - mkdir -p ./packages/stretch
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: RHEL 8
     image: rockylinux:8 
     commands:
@@ -71,6 +77,7 @@ steps:
     - mkdir -p ./packages/rhel8/
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: RHEL 9
     image: rockylinux:9 
     commands:
@@ -80,6 +87,7 @@ steps:
     - mkdir -p ./packages/rhel9/
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel9/
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: scp files
     image: appleboy/drone-scp
     settings:
@@ -116,6 +124,7 @@ steps:
     - mkdir -p ./packages/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Ubuntu 20.04
     image: ubuntu:focal
     commands:
@@ -125,6 +134,7 @@ steps:
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Ubuntu 18.04
     image: ubuntu:bionic
     commands:
@@ -134,6 +144,7 @@ steps:
     - mkdir -p ./packages/bionic
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Debian Bullseye
     image: debian:bullseye
     commands:
@@ -143,6 +154,7 @@ steps:
     - mkdir -p ./packages/bullseye
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Debian Buster
     image: debian:buster
     commands:
@@ -152,6 +164,7 @@ steps:
     - mkdir -p ./packages/buster
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: Debian Stretch
     image: debian:stretch
     commands:
@@ -161,6 +174,7 @@ steps:
     - mkdir -p ./packages/stretch
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/stretch
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: RHEL 8
     image: rockylinux:8 
     commands:
@@ -170,6 +184,7 @@ steps:
     - mkdir -p ./packages/rhel8/
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: RHEL 9
     image: rockylinux:9 
     commands:
@@ -179,6 +194,7 @@ steps:
     - mkdir -p ./packages/rhel9/
     - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel9/
     - rm -rf /tmp/hestia-src/
+    - rm -rf ./hestiacp/
   - name: scp files
     image: appleboy/drone-scp
     settings:
