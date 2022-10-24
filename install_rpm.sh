@@ -6,7 +6,7 @@ release=$(grep -o "[0-9]" /etc/redhat-release |head -n1);
 if [ "$release" = '9' ]; then
     SOFTWARE='git gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd perl-File-Copy-Recursive perl-FindBin perl-File-Compare'
 else
-    SOFTWARE='git gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd perl-File-Copy-Recursive git'
+    SOFTWARE='git gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd perl-File-Copy-Recursive'
 fi
 
 echo "Updating system DNF repositories..."
