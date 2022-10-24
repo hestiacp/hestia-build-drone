@@ -1,7 +1,13 @@
 #!/bin/bash
 source ./clone_hestiacp.sh
 
-SOFTWARE='gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd perl-File-Copy-Recursive perl-FindBin git'
+release=$(grep -o "[0-9]" /etc/redhat-release |head -n1);
+
+if [ "$release" = '9' ]; then
+    SOFTWARE='git gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd perl-File-Copy-Recursive perl-FindBin'
+else
+    SOFTWARE='git gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd perl-File-Copy-Recursive git'
+fi
 
 echo "Updating system DNF repositories..."
 dnf install -y -q 'dnf-command(config-manager)'
