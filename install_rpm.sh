@@ -1,7 +1,7 @@
 #!/bin/bash
 source ./clone_hestiacp.sh
 
-SOFTWARE='gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd'
+SOFTWARE='gcc gcc-c++ make libxml2-devel zlib-devel libzip-devel gmp-devel libcurl-devel gnutls-devel unzip openssl openssl-devel pkg-config sqlite-devel oniguruma-devel rpm-build wget tar git curl perl-IPC-Cmd perl-File-Copy-Recursive'
 
 echo "Updating system DNF repositories..."
 dnf install -y -q 'dnf-command(config-manager)'
