@@ -1,4 +1,5 @@
 #!/bin/bash
+source ./clone_hestiacp.sh
 
 if [ "$hestia" = 'yes' ]; then
     ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --hestia --noinstall --keepbuild --debug '~localsrc'
