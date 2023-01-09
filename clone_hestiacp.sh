@@ -5,7 +5,7 @@ fork="hestiacp"
 branch="beta/1.7.0"
 
 # If need to build all please set all to yes rest to no
-all="yes"
+all="no"
 hestia="no"
-nginx="no"
+nginx="yes"
 php="no"
