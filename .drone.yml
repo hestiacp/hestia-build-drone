@@ -89,7 +89,7 @@ steps:
     - rm -rf /tmp/hestia-src/
     - rm -rf ./hestiacp/
   - name: scp files
-    image: appleboy/drone-scp
+    image: appleboy/drone-scp:1.6.4
     settings:
       host:
         from_secret: target_server
@@ -196,7 +196,7 @@ steps:
     - rm -rf /tmp/hestia-src/
     - rm -rf ./hestiacp/
   - name: scp files
-    image: appleboy/drone-scp
+    image: appleboy/drone-scp:1.6.4
     settings:
       host:
         from_secret: target_server
