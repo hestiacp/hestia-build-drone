@@ -4,7 +4,7 @@ source ./clone_hestiacp.sh
 if [ "$all" = 'yes' ]; then
     ./hestiacp/src/hst_autocompile.sh --dontinstalldeps --all --noinstall --keepbuild --debug '~localsrc'
     if [ ! -f '/etc/redhat-release' ]; then
-    ./dpkg-install /tmp/hestiacp-src/deb/*.deb
+    ./dpkg-install.sh /tmp/hestiacp-src/deb/*.deb
     fi
     exit 0;
 fi
