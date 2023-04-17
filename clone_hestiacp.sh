@@ -2,10 +2,10 @@
 
 # Branch to build packages from.
 fork="hestiacp"
-branch="staging/1.7.0"
+branch="staging/1.7.3"
 
 # If need to build all please set all to yes rest to no
 all="yes"
-hestia=""
+hestia="no"
 nginx="no"
 php="no"
