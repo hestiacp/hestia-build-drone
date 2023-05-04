@@ -8,12 +8,6 @@ platform:
   arch: amd64
 
 steps:
-  - name: Build JS/CSS
-    image: node:current-slim
-    commands:
-      - yarn set version stable
-      - yarn install
-      - yarn build
   - name: Ubuntu 22.04
     image: ubuntu:jammy
     commands:
