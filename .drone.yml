@@ -30,7 +30,6 @@ steps:
     - mkdir -p ./packages/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
     - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
   - name: Ubuntu 20.04
     image: ubuntu:focal
     commands:
@@ -40,7 +39,6 @@ steps:
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
     - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
   - name: Ubuntu 18.04
     image: ubuntu:bionic
     commands:
@@ -50,7 +48,6 @@ steps:
     - mkdir -p ./packages/bionic
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
     - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
   - name: Debian 10
     image: debian:buster
     commands:
@@ -60,7 +57,6 @@ steps:
     - mkdir -p ./packages/buster
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
     - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
   - name: Debian 11
     image: debian:bullseye
     commands:
@@ -70,7 +66,6 @@ steps:
     - mkdir -p ./packages/bullseye
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
     - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
   - name: scp files
     image: appleboy/drone-scp:1.6.4
     settings:
@@ -120,7 +115,6 @@ trigger:
       - mkdir -p ./packages/jammy
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
       - rm -rf /tmp/hestia-src/
-      - rm -rf ./hestiacp/
     - name: Ubuntu 20.04
       image: ubuntu:focal
       commands:
@@ -130,7 +124,6 @@ trigger:
       - mkdir -p ./packages/focal
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
       - rm -rf /tmp/hestia-src/
-      - rm -rf ./hestiacp/
     - name: Ubuntu 18.04
       image: ubuntu:bionic
       commands:
@@ -140,7 +133,6 @@ trigger:
       - mkdir -p ./packages/bionic
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
       - rm -rf /tmp/hestia-src/
-      - rm -rf ./hestiacp/
     - name: Debian 10
       image: debian:buster
       commands:
@@ -150,7 +142,6 @@ trigger:
       - mkdir -p ./packages/buster
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
       - rm -rf /tmp/hestia-src/
-      - rm -rf ./hestiacp/
     - name: Debian 11
       image: debian:bullseye
       commands:
@@ -160,7 +151,6 @@ trigger:
       - mkdir -p ./packages/bullseye
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
       - rm -rf /tmp/hestia-src/
-      - rm -rf ./hestiacp/
     - name: scp files
       image: appleboy/drone-scp:1.6.4
       settings:
