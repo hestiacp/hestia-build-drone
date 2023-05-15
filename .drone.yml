@@ -53,11 +53,11 @@ trigger:
 ---
 kind: pipeline
 type: ssh
-name: Build Hestia for RHEL AMD64
+name: Build Hestia for RHEL ARM64
 
 platform:
   os: linux
-  arch: amd64
+  arch: arm64
 
 steps:
   - name: Cleanup SOURCES & SPECS folder
