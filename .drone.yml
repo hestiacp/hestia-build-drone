@@ -17,8 +17,8 @@ steps:
   - name: Get SPECS & SOURCES
     commands:
     - cp ~/hestiacp/src/rpm/nginx/nginx.conf "$HOME/rpmbuild/SOURCES/nginx.conf"
-		- cp ~/hestiacp/src/rpm/nginx/hestia-nginx.spec "$HOME/rpmbuild/SPECS/hestia-nginx.spec"
-		- cp ~/hestiacp/src/rpm/nginx/hestia-nginx.service "$HOME/rpmbuild/SOURCES/hestia-nginx.service"
+    - cp ~/hestiacp/src/rpm/nginx/hestia-nginx.spec "$HOME/rpmbuild/SPECS/hestia-nginx.spec"
+    - cp ~/hestiacp/src/rpm/nginx/hestia-nginx.service "$HOME/rpmbuild/SOURCES/hestia-nginx.service"
     - wget https://nginx.org/download/nginx-1.24.0.tar.gz "$HOME/rpmbuild/SOURCES/"
   - name: Build source RPMS
     commands:
@@ -51,15 +51,6 @@ trigger:
   event: [ promote ]
   
 ---
-  kind: pipeline
-  type: docker
-  name: Build Hestia for ARM64
-  
-  platform:
-    os: linux
-    arch: arm64
-  
----
 kind: pipeline
 type: ssh
 name: Build Hestia for RHEL AMD64
@@ -78,8 +69,8 @@ steps:
   - name: Get SPECS & SOURCES
     commands:
     - cp ~/hestiacp/src/rpm/nginx/nginx.conf "$HOME/rpmbuild/SOURCES/nginx.conf"
-		- cp ~/hestiacp/src/rpm/nginx/hestia-nginx.spec "$HOME/rpmbuild/SPECS/hestia-nginx.spec"
-		- cp ~/hestiacp/src/rpm/nginx/hestia-nginx.service "$HOME/rpmbuild/SOURCES/hestia-nginx.service"
+    - cp ~/hestiacp/src/rpm/nginx/hestia-nginx.spec "$HOME/rpmbuild/SPECS/hestia-nginx.spec"
+    - cp ~/hestiacp/src/rpm/nginx/hestia-nginx.service "$HOME/rpmbuild/SOURCES/hestia-nginx.service"
     - wget https://nginx.org/download/nginx-1.24.0.tar.gz "$HOME/rpmbuild/SOURCES/"
   - name: Build source RPMS
     commands:
@@ -108,8 +99,8 @@ steps:
       source:
       - ./packages/*
       
-  trigger:
-    event: [ promote ]
+trigger:
+  event: [ promote ]
     
 ---
   kind: pipeline
