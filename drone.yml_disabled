@@ -58,26 +58,6 @@ steps:
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
     - rm -rf /tmp/hestia-src/
     - rm -rf ./hestiacp/
-  - name: RHEL 8
-    image: rockylinux:8 
-    commands:
-    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_rpm.sh
-    - ./build_packages.sh
-    - mkdir -p ./packages/rhel8/
-    - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
-    - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
-  - name: RHEL 9
-    image: rockylinux:9 
-    commands:
-    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_rpm.sh
-    - ./build_packages.sh
-    - mkdir -p ./packages/rhel9/
-    - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel9/
-    - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
   - name: scp files
     image: appleboy/drone-scp:1.6.4
     settings:
@@ -155,26 +135,58 @@ steps:
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
     - rm -rf /tmp/hestia-src/
     - rm -rf ./hestiacp/
+  - name: scp files
+    image: appleboy/drone-scp:1.6.4
+    settings:
+      host:
+        from_secret: target_server
+      user: root
+      key:
+        from_secret: ssh_key
+      port: 22
+      command_timeout: 2m
+      target: /root/
+      source:
+        - ./packages/*
+        
+trigger:
+  event: [ push ]
+
+---
+kind: pipeline
+type: ssh
+name: Build Hestia for RHEL AMD64
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: Cleanup SOURCES & SPECS folder
+    commands:
+    - rm -rf ~/rpmbuild/SPECS/* ~/rpmbuild/SOURCES/* ~/rpmbuild/SRPMS/* ~/hestiacp
+  - name: Clone HestiaCP
+    commands:
+    - cd ~ && git clone https://github.com/hestiacp/hestiacp
+  - name: Get SPECS & SOURCES
+    commands:
+    - cp ~/hestiacp/src/rpm/nginx/nginx.conf "$HOME/rpmbuild/SOURCES/nginx.conf"
+		- cp ~/hestiacp/src/rpm/nginx/hestia-nginx.spec "$HOME/rpmbuild/SPECS/hestia-nginx.spec"
+		- cp ~/hestiacp/src/rpm/nginx/hestia-nginx.service "$HOME/rpmbuild/SOURCES/hestia-nginx.service"
+    - wget https://nginx.org/download/nginx-1.24.0.tar.gz "$HOME/rpmbuild/SOURCES/"
+  - name: Build source RPMS
+    commands:
+    - rpmbuild -bs ~/rpmbuild/SPECS/hestia-nginx.spec
   - name: RHEL 8
-    image: rockylinux:8 
     commands:
-    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_rpm.sh
-    - ./build_packages.sh
     - mkdir -p ./packages/rhel8/
-    - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
-    - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
+    - mock -r rocky+epel-8-$(arch) ~/rpmbuild/SRPMS/hestia-nginx-1.24.0-1.el8.src.rpm
+    - cp /var/lib/mock/rocky+epel-8-$(arch)/result/*.rpm ./packages/rhel8/
   - name: RHEL 9
-    image: rockylinux:9 
     commands:
-    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_rpm.sh
-    - ./build_packages.sh
     - mkdir -p ./packages/rhel9/
-    - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel9/
-    - rm -rf /tmp/hestia-src/
-    - rm -rf ./hestiacp/
+    - mock -r rocky+epel-9-$(arch) ~/rpmbuild/SRPMS/hestia-nginx-1.24.0-1.el9.src.rpm
+    - cp /var/lib/mock/rocky+epel-9-$(arch)/result/*.rpm ./packages/rhel9/
   - name: scp files
     image: appleboy/drone-scp:1.6.4
     settings:
