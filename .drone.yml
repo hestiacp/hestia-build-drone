@@ -6,6 +6,14 @@ name: Build Hestia for RHEL AMD64
 platform:
   os: linux
   arch: amd64
+  
+server:
+  host:
+    from_secret: server_address
+  user:
+    from_secret: username
+  ssh_key:
+    from_secret: ssh_key
 
 steps:
   - name: Cleanup SOURCES & SPECS folder
@@ -34,18 +42,8 @@ steps:
     - mock -r rocky+epel-9-$(arch) ~/rpmbuild/SRPMS/hestia-nginx-1.24.0-1.el9.src.rpm
     - cp /var/lib/mock/rocky+epel-9-$(arch)/result/*.rpm ./packages/rhel9/
   - name: scp files
-    image: appleboy/drone-scp:1.6.4
-    settings:
-      host:
-        from_secret: target_server
-      user: root
-      key:
-        from_secret: ssh_key
-      port: 22
-      command_timeout: 2m
-      target: /root/
-      source:
-      - ./packages/*
+    commands:
+    - echo "To do create tar file and scp"
     
 trigger:
   event: [ promote ]
