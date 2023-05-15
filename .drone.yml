@@ -25,7 +25,6 @@ steps:
     image: ubuntu:jammy
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_apt.sh
     - ./build_packages.sh
     - mkdir -p ./packages/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
@@ -34,7 +33,6 @@ steps:
     image: ubuntu:focal
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_apt.sh
     - ./build_packages.sh
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
@@ -43,7 +41,6 @@ steps:
     image: ubuntu:bionic
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_apt.sh
     - ./build_packages.sh
     - mkdir -p ./packages/bionic
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
@@ -52,7 +49,6 @@ steps:
     image: debian:buster
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_apt.sh
     - ./build_packages.sh
     - mkdir -p ./packages/buster
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
@@ -61,10 +57,25 @@ steps:
     image: debian:bullseye
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./install_apt.sh
     - ./build_packages.sh
     - mkdir -p ./packages/bullseye
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
+    - rm -rf /tmp/hestia-src/
+  - name: RHEL 8
+    image: rockylinux:8 
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./build_packages.sh
+    - mkdir -p ./packages/rhel8/
+    - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
+    - rm -rf /tmp/hestia-src/
+  - name: RHEL 9
+    image: rockylinux:9 
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./build_packages.sh
+    - mkdir -p ./packages/rhel9/
+    - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel9/
     - rm -rf /tmp/hestia-src/
   - name: scp files
     image: appleboy/drone-scp:1.6.4
@@ -110,7 +121,6 @@ trigger:
       image: ubuntu:jammy
       commands:
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./install_apt.sh
       - ./build_packages.sh
       - mkdir -p ./packages/jammy
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
@@ -119,7 +129,6 @@ trigger:
       image: ubuntu:focal
       commands:
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./install_apt.sh
       - ./build_packages.sh
       - mkdir -p ./packages/focal
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
@@ -128,7 +137,6 @@ trigger:
       image: ubuntu:bionic
       commands:
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./install_apt.sh
       - ./build_packages.sh
       - mkdir -p ./packages/bionic
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
@@ -137,7 +145,6 @@ trigger:
       image: debian:buster
       commands:
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./install_apt.sh
       - ./build_packages.sh
       - mkdir -p ./packages/buster
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
@@ -146,10 +153,25 @@ trigger:
       image: debian:bullseye
       commands:
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./install_apt.sh
       - ./build_packages.sh
       - mkdir -p ./packages/bullseye
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
+      - rm -rf /tmp/hestia-src/
+    - name: RHEL 8
+      image: rockylinux:8 
+      commands:
+      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+      - ./build_packages.sh
+      - mkdir -p ./packages/rhel8/
+      - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel8/
+      - rm -rf /tmp/hestia-src/
+    - name: RHEL 9
+      image: rockylinux:9 
+      commands:
+      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+      - ./build_packages.sh
+      - mkdir -p ./packages/rhel9/
+      - mv /tmp/hestiacp-src/rpm/*.rpm ./packages/rhel9/
       - rm -rf /tmp/hestia-src/
     - name: scp files
       image: appleboy/drone-scp:1.6.4
