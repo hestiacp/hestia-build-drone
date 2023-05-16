@@ -21,34 +21,58 @@ steps:
     - rm -rf /home/hestia/rpmbuild/SPECS/* /home/hestia/rpmbuild/SOURCES/* /home/hestia/rpmbuild/SRPMS/* /home/hestia/hestiacp
   - name: Clone HestiaCP
     commands:
-    - cd /home/hestia/ && git clone https://github.com/hestiacp/hestiacp
+    - cd /home/hestia/ && git clone https://github.com/istiak101/hestiacp && cd /home/hestia/hestiacp && git checkout rhel-build-system
   - name: Get SPECS & SOURCES
     environment:
-      VERSION: 1.23.4
+      NGINX: 1.24.0
+      PHP: 8.2.6
+      HESTIA: 1.8.0~alpha
     commands:
     - cp /home/hestia/hestiacp/src/rpm/nginx/nginx.conf /home/hestia/rpmbuild/SOURCES/nginx.conf
     - cp /home/hestia/hestiacp/src/rpm/nginx/hestia-nginx.spec /home/hestia/rpmbuild/SPECS/hestia-nginx.spec
     - cp /home/hestia/hestiacp/src/rpm/nginx/hestia-nginx.service /home/hestia/rpmbuild/SOURCES/hestia-nginx.service
-    - wget https://nginx.org/download/nginx-1.23.4.tar.gz -P /home/hestia/rpmbuild/SOURCES/
+    - wget -q https://nginx.org/download/nginx-$NGINX.tar.gz -P /home/hestia/rpmbuild/SOURCES/
+    - cp /home/hestia/hestiacp/src/rpm/php/php-fpm.conf /home/hestia/rpmbuild/SOURCES/php-fpm.conf
+    - cp /home/hestia/hestiacp/src/rpm/php/php.ini /home/hestia/rpmbuild/SOURCES/php.ini
+    - cp /home/hestia/hestiacp/src/rpm/php/hestia-php.spec /home/hestia/rpmbuild/SPECS/hestia-php.spec
+    - cp /home/hestia/hestiacp/src/rpm/php/hestia-php.service /home/hestia/rpmbuild/SOURCES/hestia-php.service
+    - wget -q http://de2.php.net/distributions/php-$PHP.tar.gz -P /home/hestia/rpmbuild/SOURCES/
+    - cp /home/hestia/hestiacp/src/rpm/hestia/hestia.spec /home/hestia/rpmbuild/SPECS/hestia.spec
+    - cp /home/hestia/hestiacp/src/rpm/hestia/hestia.service /home/hestia/rpmbuild/SOURCES/hestia.service
+    - tar -czf /home/hestia/rpmbuild/SOURCES/hestia-$HESTIA.tar.gz -C /home/hestia hestiacp
   - name: Build source RPMS
+    environment:
+      HOME: /home/hestia
     commands:
     - rpmbuild -bs /home/hestia/rpmbuild/SPECS/hestia-nginx.spec
-  - name: RHEL 8
-    environment:
-      VERSION: 1.23.4
-      HOME: /home/hestia
-    commands:
-    - mkdir -p /home/hestia/packages/rhel8/
-    - mock -r rocky+epel-8-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-nginx-$VERSION-1.el9.src.rpm
-    - cp /var/lib/mock/rocky+epel-8-$(arch)/result/*.rpm /home/hestia/packages/rhel8/
+    - rpmbuild -bs /home/hestia/rpmbuild/SPECS/hestia-php.spec
+    - rpmbuild -bs /home/hestia/rpmbuild/SPECS/hestia.spec
   - name: RHEL 9
     environment:
-      VERSION: 1.23.4
-      HOME: /home/hestia
+      NGINX: 1.24.0
+      PHP: 8.2.6
+      HESTIA: 1.8.0~alpha
     commands:
     - mkdir -p /home/hestia/packages/rhel9/
-    - mock -r rocky+epel-9-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-nginx-$VERSION-1.el9.src.rpm
-    - cp /var/lib/mock/rocky+epel-9-$(arch)/result/*.rpm /home/hestia/packages/rhel9/
+    - mock -r rocky+epel-9-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-nginx-$NGINX-1.el9.src.rpm
+    - cp -f /var/lib/mock/rocky+epel-9-$(arch)/result/*.rpm /home/hestia/packages/rhel9/
+    - mock -r rocky+epel-9-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-php-$PHP-1.el9.src.rpm
+    - cp -f /var/lib/mock/rocky+epel-9-$(arch)/result/*.rpm /home/hestia/packages/rhel9/
+    - mock -r rocky+epel-9-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-$HESTIA-1.el9.src.rpm
+    - cp -f /var/lib/mock/rocky+epel-9-$(arch)/result/*.rpm /home/hestia/packages/rhel9/
+  - name: RHEL 8
+    environment:
+      NGINX: 1.24.0
+      PHP: 8.2.6
+      HESTIA: 1.8.0~alpha
+    commands:
+    - mkdir -p /home/hestia/packages/rhel8/
+    - mock -r rocky+epel-8-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-nginx-$NGINX-1.el9.src.rpm
+    - cp -f /var/lib/mock/rocky+epel-8-$(arch)/result/*.rpm /home/hestia/packages/rhel8/
+    - mock -r rocky+epel-8-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-php-$PHP-1.el9.src.rpm
+    - cp -f /var/lib/mock/rocky+epel-8-$(arch)/result/*.rpm /home/hestia/packages/rhel8/
+    - mock -r rocky+epel-8-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-$HESTIA-1.el9.src.rpm
+    - cp -f /var/lib/mock/rocky+epel-8-$(arch)/result/*.rpm /home/hestia/packages/rhel8/
   - name: scp files
     commands:
     - echo "To do create tar file and scp"
