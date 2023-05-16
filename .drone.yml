@@ -24,10 +24,10 @@ steps:
     - cd ~ && git clone https://github.com/hestiacp/hestiacp
   - name: Get SPECS & SOURCES
     commands:
-    - cp ~/hestiacp/src/rpm/nginx/nginx.conf "$HOME/rpmbuild/SOURCES/nginx.conf"
-    - cp ~/hestiacp/src/rpm/nginx/hestia-nginx.spec "$HOME/rpmbuild/SPECS/hestia-nginx.spec"
-    - cp ~/hestiacp/src/rpm/nginx/hestia-nginx.service "$HOME/rpmbuild/SOURCES/hestia-nginx.service"
-    - wget https://nginx.org/download/nginx-1.24.0.tar.gz "$HOME/rpmbuild/SOURCES/"
+    - cp /home/hestiacp/hestiacp/src/rpm/nginx/nginx.conf /home/hestiacp/rpmbuild/SOURCES/nginx.conf
+    - cp /home/hestiacp/hestiacp/src/rpm/nginx/hestia-nginx.spec /home/hestiacp/rpmbuild/SPECS/hestia-nginx.spec
+    - cp /home/hestiacp/hestiacp/src/rpm/nginx/hestia-nginx.service /home/hestiacp/rpmbuild/SOURCES/hestia-nginx.service
+    - wget https://nginx.org/download/nginx-1.24.0.tar.gz /home/hestiacp/rpmbuild/SOURCES/
   - name: Build source RPMS
     commands:
     - rpmbuild -bs ~/rpmbuild/SPECS/hestia-nginx.spec
