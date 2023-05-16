@@ -3,10 +3,6 @@ kind: pipeline
 type: ssh
 name: Build Hestia for RHEL AMD64
 
-environment:
-  VERSION: 1.23.4
-  HOME: /home/hestia
-
 platform:
   os: linux
   arch: amd64
@@ -27,6 +23,8 @@ steps:
     commands:
     - cd /home/hestia/ && git clone https://github.com/hestiacp/hestiacp
   - name: Get SPECS & SOURCES
+    environment:
+      VERSION: 1.23.4
     commands:
     - cp /home/hestia/hestiacp/src/rpm/nginx/nginx.conf /home/hestia/rpmbuild/SOURCES/nginx.conf
     - cp /home/hestia/hestiacp/src/rpm/nginx/hestia-nginx.spec /home/hestia/rpmbuild/SPECS/hestia-nginx.spec
@@ -36,11 +34,17 @@ steps:
     commands:
     - rpmbuild -bs /home/hestia/rpmbuild/SPECS/hestia-nginx.spec
   - name: RHEL 8
+    environment:
+      VERSION: 1.23.4
+      HOME: /home/hestia
     commands:
     - mkdir -p /home/hestia/packages/rhel8/
     - mock -r rocky+epel-8-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-nginx-$VERSION-1.el9.src.rpm
     - cp /var/lib/mock/rocky+epel-8-$(arch)/result/*.rpm /home/hestia/packages/rhel8/
   - name: RHEL 9
+    environment:
+      VERSION: 1.23.4
+      HOME: /home/hestia
     commands:
     - mkdir -p /home/hestia/packages/rhel9/
     - mock -r rocky+epel-9-$(arch) rebuild /home/hestia/rpmbuild/SRPMS/hestia-nginx-$VERSION-1.el9.src.rpm
