@@ -38,14 +38,6 @@ steps:
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
     - rm -rf /tmp/hestia-src/
-  - name: Ubuntu 18.04
-    image: ubuntu:bionic
-    commands:
-    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/bionic
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
-    - rm -rf /tmp/hestia-src/
   - name: Debian 10
     image: debian:buster
     commands:
@@ -56,6 +48,14 @@ steps:
     - rm -rf /tmp/hestia-src/
   - name: Debian 11
     image: debian:bullseye
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/bullseye
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
+    - rm -rf /tmp/hestia-src/
+  - name: Debian 12
+    image: debian:bookworm
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
@@ -119,14 +119,6 @@ trigger:
       - mkdir -p ./packages/focal
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
       - rm -rf /tmp/hestia-src/
-    - name: Ubuntu 18.04
-      image: ubuntu:bionic
-      commands:
-      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/bionic
-      - mv /tmp/hestiacp-src/deb/*.deb ./packages/bionic
-      - rm -rf /tmp/hestia-src/
     - name: Debian 10
       image: debian:buster
       commands:
@@ -137,6 +129,14 @@ trigger:
       - rm -rf /tmp/hestia-src/
     - name: Debian 11
       image: debian:bullseye
+      commands:
+      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+      - mkdir -p ./packages/bullseye
+      - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
+      - rm -rf /tmp/hestia-src/
+    - name: Debian 12
+      image: debian:bookworm
       commands:
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
       - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
