@@ -59,7 +59,7 @@ steps:
     commands:
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/bullseye
+    - mkdir -p ./packages/bookworm
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
     - rm -rf /tmp/hestia-src/
   - name: scp files
@@ -140,7 +140,7 @@ trigger:
       commands:
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
       - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/bullseye
+      - mkdir -p ./packages/bookworm
       - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
       - rm -rf /tmp/hestia-src/
     - name: scp files
