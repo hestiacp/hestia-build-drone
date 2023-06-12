@@ -19,9 +19,8 @@ steps:
     image: node:current-slim
     commands:
     - cd ./hestiacp/
-    - yarn set version stable
-    - yarn install
-    - yarn build
+    - npm ci
+    - npm run build
   - name: Ubuntu 22.04
     image: ubuntu:jammy
     commands:
@@ -100,9 +99,8 @@ trigger:
       image: node:current-slim
       commands:
       - cd ./hestiacp/
-      - yarn set version stable
-      - yarn install
-      - yarn build
+      - npm ci
+      - npm run build
     - name: Ubuntu 22.04
       image: ubuntu:jammy
       commands:
