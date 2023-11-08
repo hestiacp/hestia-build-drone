@@ -15,12 +15,6 @@ steps:
       - cd hestiacp
       - echo "Checkout ${branch}"
       - git checkout ${branch}
-  - name: Build JS/CSS
-    image: node:current-slim
-    commands:
-    - cd ./hestiacp/
-    - npm ci
-    - npm run build
   - name: Ubuntu 22.04
     image: ubuntu:jammy
     commands:
