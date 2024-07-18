@@ -15,6 +15,14 @@ steps:
       - cd hestiacp
       - echo "Checkout ${branch}"
       - git checkout ${branch}
+  - name: Ubuntu 24.04
+    image: ubuntu:noble
+    commands:
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/jammy
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
+    - rm -rf /tmp/hestia-src/
   - name: Ubuntu 22.04
     image: ubuntu:jammy
     commands:
@@ -95,6 +103,14 @@ trigger:
       - cd ./hestiacp/
       - npm ci
       - npm run build
+    - name: Ubuntu 24.04
+      image: ubuntu:noble
+      commands:
+      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+      - mkdir -p ./packages/jammy
+      - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
+      - rm -rf /tmp/hestia-src/
     - name: Ubuntu 22.04
       image: ubuntu:jammy
       commands:
