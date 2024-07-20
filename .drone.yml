@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: docker
-name: Build Hestia for AMD64
+name: Build Hestia for AMD64 Ubuntu
 
 platform:
   os: linux
@@ -24,25 +24,62 @@ steps:
     - mkdir -p ./packages/focal
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
     - rm -rf /tmp/hestia-src/
-  - name: Ubuntu 24.04
-    image: ubuntu:noble
-    commands:
-    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/jammy
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
-    - rm -rf /tmp/hestia-src/
   - name: Ubuntu 22.04
     image: ubuntu:jammy
     commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/jammy
     - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
     - rm -rf /tmp/hestia-src/
+  - name: Ubuntu 24.04
+    image: ubuntu:noble
+    commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/jammy
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
+    - rm -rf /tmp/hestia-src/
+  - name: scp files
+    image: appleboy/drone-scp:1.6.4
+    settings:
+      host:
+        from_secret: target_server
+      user: root
+      key:
+        from_secret: ssh_key
+      port: 22
+      command_timeout: 2m
+      target: /root/
+      source:
+      - ./packages/*
+    
+trigger:
+  event: [ promote ]
+
+---
+kind: pipeline
+type: docker
+name: Build Hestia for AMD64 Debian
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: Clone HestiaCP
+    image: alpine/git
+    commands:
+      - git clone https://github.com/hestiacp/hestiacp.git
+      - cd hestiacp
+      - echo "Checkout ${branch}"
+      - git checkout ${branch}
   - name: Debian 10
     image: debian:buster
     commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/buster
@@ -51,6 +88,7 @@ steps:
   - name: Debian 11
     image: debian:bullseye
     commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/bullseye
@@ -59,6 +97,7 @@ steps:
   - name: Debian 12
     image: debian:bookworm
     commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
     - mkdir -p ./packages/bookworm
@@ -80,7 +119,7 @@ steps:
     
 trigger:
   event: [ promote ]
-  
+
 ---
   kind: pipeline
   type: docker
@@ -110,6 +149,7 @@ trigger:
     - name: Ubuntu 24.04
       image: ubuntu:noble
       commands:
+      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
       - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
       - mkdir -p ./packages/jammy
@@ -118,6 +158,7 @@ trigger:
     - name: Ubuntu 22.04
       image: ubuntu:jammy
       commands:
+      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
       - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
       - mkdir -p ./packages/jammy
@@ -126,6 +167,7 @@ trigger:
     - name: Debian 10
       image: debian:buster
       commands:
+      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
       - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
       - mkdir -p ./packages/buster
@@ -134,6 +176,7 @@ trigger:
     - name: Debian 11
       image: debian:bullseye
       commands:
+      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
       - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
       - mkdir -p ./packages/bullseye
@@ -142,6 +185,7 @@ trigger:
     - name: Debian 12
       image: debian:bookworm
       commands:
+      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
       - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
       - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
       - mkdir -p ./packages/bookworm
