@@ -123,7 +123,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: Build Hestia for ARM64 Ubuntu
+name: Build Hestia for ARM64
 
 platform:
   os: linux
