@@ -39,8 +39,8 @@ steps:
     - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
     - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
     - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-    - mkdir -p ./packages/jammy
-    - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
+    - mkdir -p ./packages/noble
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/noble
     - rm -rf /tmp/hestia-src/
   - name: scp files
     image: appleboy/drone-scp:1.6.4
@@ -121,92 +121,126 @@ trigger:
   event: [ promote ]
 
 ---
-  kind: pipeline
-  type: docker
-  name: Build Hestia for ARM64
-  
-  platform:
-    os: linux
-    arch: arm64
-  
-  steps:
-    - name: Clone HestiaCP
-      image: alpine/git
-      commands:
-        - git clone https://github.com/hestiacp/hestiacp.git
-        - cd hestiacp
-        - echo "Checkout ${branch}"
-        - git checkout ${branch}
-    - name: Ubuntu 20.04
-      image: ubuntu:focal
-      commands:
-      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
-      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/focal
-      - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
-      - rm -rf /tmp/hestia-src/
-    - name: Ubuntu 24.04
-      image: ubuntu:noble
-      commands:
-      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
-      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/jammy
-      - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
-      - rm -rf /tmp/hestia-src/
-    - name: Ubuntu 22.04
-      image: ubuntu:jammy
-      commands:
-      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
-      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/jammy
-      - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
-      - rm -rf /tmp/hestia-src/
-    - name: Debian 10
-      image: debian:buster
-      commands:
-      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
-      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/buster
-      - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
-      - rm -rf /tmp/hestia-src/
-    - name: Debian 11
-      image: debian:bullseye
-      commands:
-      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
-      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/bullseye
-      - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
-      - rm -rf /tmp/hestia-src/
-    - name: Debian 12
-      image: debian:bookworm
-      commands:
-      - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
-      - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
-      - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
-      - mkdir -p ./packages/bookworm
-      - mv /tmp/hestiacp-src/deb/*.deb ./packages/bookworm
-      - rm -rf /tmp/hestia-src/
-    - name: scp files
-      image: appleboy/drone-scp:1.6.4
-      settings:
-        host:
-          from_secret: target_server
-        user: root
-        key:
-          from_secret: ssh_key
-        port: 22
-        command_timeout: 2m
-        target: /root/
-        source:
-        - ./packages/*
-      
-  trigger:
-    event: [ promote ]
+kind: pipeline
+type: docker
+name: Build Hestia for ARM64 Ubuntu
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: Clone HestiaCP
+    image: alpine/git
+    commands:
+      - git clone https://github.com/hestiacp/hestiacp.git
+      - cd hestiacp
+      - echo "Checkout ${branch}"
+      - git checkout ${branch}
+  - name: Ubuntu 20.04
+    image: ubuntu:focal
+    commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/focal
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/focal
+    - rm -rf /tmp/hestia-src/
+  - name: Ubuntu 22.04
+    image: ubuntu:jammy
+    commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/jammy
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/jammy
+    - rm -rf /tmp/hestia-src/
+  - name: Ubuntu 24.04
+    image: ubuntu:noble
+    commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/noble
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/noble
+    - rm -rf /tmp/hestia-src/
+  - name: scp files
+    image: appleboy/drone-scp:1.6.4
+    settings:
+      host:
+        from_secret: target_server
+      user: root
+      key:
+        from_secret: ssh_key
+      port: 22
+      command_timeout: 2m
+      target: /root/
+      source:
+      - ./packages/*
+    
+trigger:
+  event: [ promote ]
+
+---
+kind: pipeline
+type: docker
+name: Build Hestia for ARM64 Debian
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: Clone HestiaCP
+    image: alpine/git
+    commands:
+      - git clone https://github.com/hestiacp/hestiacp.git
+      - cd hestiacp
+      - echo "Checkout ${branch}"
+      - git checkout ${branch}
+  - name: Debian 10
+    image: debian:buster
+    commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/buster
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/buster
+    - rm -rf /tmp/hestia-src/
+  - name: Debian 11
+    image: debian:bullseye
+    commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/bullseye
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bullseye
+    - rm -rf /tmp/hestia-src/
+  - name: Debian 12
+    image: debian:bookworm
+    commands:
+    - DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC  apt-get update && apt-get install -y curl tzdata
+    - ln -snf /usr/share/zoneinfo/CET /etc/localtime && echo CET > /etc/timezone
+    - ./hestiacp/src/hst_autocompile.sh --all --noinstall --keepbuild --debug '~localsrc'
+    - mkdir -p ./packages/bookworm
+    - mv /tmp/hestiacp-src/deb/*.deb ./packages/bookworm
+    - rm -rf /tmp/hestia-src/
+  - name: scp files
+    image: appleboy/drone-scp:1.6.4
+    settings:
+      host:
+        from_secret: target_server
+      user: root
+      key:
+        from_secret: ssh_key
+      port: 22
+      command_timeout: 2m
+      target: /root/
+      source:
+      - ./packages/*
+    
+trigger:
+  event: [ promote ]
     
 ---
   kind: pipeline
