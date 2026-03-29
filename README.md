@@ -65,4 +65,16 @@ Build Hestia packages with drone / docker
 
 
 ## Build the packages
-- Update clone_hestiacp.sh and update the target branch then push the commit
+
+Start new build or trigger new build by commiting in this repo
+
+Then when finished press Promote in 
+https://drone.hestiacp.com/hestiacp/hestia-build-drone/7
+
+And then enter branch = x.x.x 
+And press + add
+
+Then press deploy
+
+When finished it uploads to beta-apt.hestiacp.com
+https://github.com/hestiacp/release-packages
